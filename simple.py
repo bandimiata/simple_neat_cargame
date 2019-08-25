@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 pygame.init()
 pygame.font.init()
 myfont = pygame.font.SysFont("Arial", 50)
