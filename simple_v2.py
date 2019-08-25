@@ -12,7 +12,7 @@ myfont = pygame.font.SysFont("Arial", 50)
 
 WIN_WIDTH = 800
 WIN_height = 800
-VEL = 100
+VEL = 50
 BG_COLOR = (0,0,0)
 RED = (255,0,0)
 BLUE = (0,0,255)
@@ -193,14 +193,13 @@ def main(genomes, config):
             if len(boxes) > 1 and cars[0].y + cars[0].height > boxes[0].y:
                 box_ind = 1
 
-        for z, car in enumerate(cars):
-            ge[z].fitness += 0.05
+        for x, car in enumerate(cars):
+            ge[x].fitness += 0.05
 
-            output = nets[z].activate((car.x, car.x - boxes[box_ind].x, car.y - boxes[box_ind].y - boxes[box_ind].height))
-            
-            if output[0] > 1:
+            output = nets[x].activate((car.x, car.x - boxes[box_ind].x, car.y - boxes[box_ind].y))
+            if output[0] > 0.5:
                 car.right()
-            if output[1] > 1:
+            if output[1] > 0.5:
                 car.left()
 
 #        keys = pygame.key.get_pressed()
@@ -260,7 +259,7 @@ def main(genomes, config):
                 if kari.colliderect(box.get_rect()):
                     
                     
-                    ge[x].fitness -= 1
+                    ge[x].fitness -= 5
                     cars.pop(x)
                     nets.pop(x)
                     ge.pop(x)
@@ -282,7 +281,7 @@ def main(genomes, config):
         
         if add_box:
             for g in ge:
-                g.fitness += 2
+                g.fitness += 5
             boxes.append(Boxes(0, WHITE))
             add_box = False
             box.passed = True
